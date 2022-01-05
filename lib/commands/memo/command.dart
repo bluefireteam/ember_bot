@@ -8,8 +8,9 @@ import 'package:nyxx/nyxx.dart';
 import 'package:nyxx_interactions/nyxx_interactions.dart';
 
 Future<SlashCommandBuilder> command() async {
-  final memosData = File('./data/memos.csv').readAsStringSync().split('\n')
-    ..removeAt(0);
+  final memosData = File('./data/memos.csv').readAsLinesSync()
+    ..removeAt(0)
+    ..where((e) => e.isNotEmpty);
 
   final memos = <Memo>[];
   for (final memoData in memosData) {
