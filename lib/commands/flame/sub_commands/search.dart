@@ -47,9 +47,9 @@ Future<CommandOptionBuilder> search() async {
           event.args.firstWhere((element) => element.name == 'query').value;
 
       event.respond(
-        MessageBuilder()
-          ..content =
-              'https://docs.flame-engine.org/$version/search.html?q=$query',
+        MessageBuilder.content(
+          'https://docs.flame-engine.org/$version/search.html?q=$query',
+        ),
         hidden: true,
       );
     });

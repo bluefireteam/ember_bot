@@ -39,13 +39,13 @@ Future<CommandOptionBuilder> remove() async {
 
       if (!member.roles.contains(role)) {
         return event.respond(
-          MessageBuilder()..content = 'You dont have that role silly.',
+          MessageBuilder.content('You dont have that role silly.'),
           hidden: true,
         );
       }
       await member.removeRole(role);
       await event.respond(
-        MessageBuilder()..content = 'Your role has been removed!',
+        MessageBuilder.content('Your role has been removed!'),
         hidden: true,
       );
     });

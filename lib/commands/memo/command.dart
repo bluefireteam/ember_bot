@@ -56,11 +56,10 @@ Future<SlashCommandBuilder> command() async {
       final memo = memos.firstWhere((m) => m.description == which.value);
 
       await event.respond(
-        MessageBuilder()
-          ..content = [
-            if (mentionedUser != null) 'Hi ${mentionedUser.mention},',
-            '${memo.message.content}',
-          ].join('\n'),
+        MessageBuilder.content([
+          if (mentionedUser != null) 'Hi ${mentionedUser.mention},',
+          '${memo.message.content}',
+        ].join('\n')),
       );
     });
 }

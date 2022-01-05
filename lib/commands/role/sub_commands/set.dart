@@ -39,13 +39,13 @@ Future<CommandOptionBuilder> set() async {
 
       if (member.roles.contains(role)) {
         return event.respond(
-          MessageBuilder()..content = 'You already have that role silly.',
+          MessageBuilder.content('You already have that role silly.'),
           hidden: true,
         );
       }
       await member.addRole(role);
       await event.respond(
-        MessageBuilder()..content = 'Your role has been set!',
+        MessageBuilder.content('Your role has been set!'),
         hidden: true,
       );
     });

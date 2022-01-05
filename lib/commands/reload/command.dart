@@ -14,22 +14,33 @@ Future<SlashCommandBuilder> command() async {
   )..registerHandler((event) async {
       if (!isAdmin(event.interaction.memberAuthor!)) {
         return event.respond(
-          MessageBuilder()
-            ..content = 'Sorry but you are not allowed to do that',
+          MessageBuilder.content('Sorry but you are not allowed to do that'),
           hidden: true,
         );
       }
 
+      await event.respond(
+        MessageBuilder.content('Gotcha! Reloading now...'),
+        hidden: true,
+      );
       try {
+        await event.sendFollowup(
+          MessageBuilder.content('Pulling new data files...'),
+          hidden: true,
+        );
         await Process.run('git', ['pull']);
-        return event.respond(
-          MessageBuilder()..content = 'Sucessfully reloaded my data files',
+        await event.sendFollowup(
+          MessageBuilder.content('Done, rebuilding my interactions now...'),
+          hidden: true,
+        );
+        await syncInteractions();
+        await event.sendFollowup(
+          MessageBuilder.content('Done, I have sucessfully reloaded myself.'),
           hidden: true,
         );
       } catch (err) {
-        print(err);
-        return event.respond(
-          MessageBuilder()..content = 'Seems like something went wrong? HELP',
+        await event.sendFollowup(
+          MessageBuilder.content('Seems like something went wrong: $err'),
           hidden: true,
         );
       }
