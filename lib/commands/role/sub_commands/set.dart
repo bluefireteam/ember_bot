@@ -37,7 +37,7 @@ Future<CommandOptionBuilder> set() async {
         (role) => '${role.id.id}' == arg.value,
       );
 
-      if (member.roles.contains(role)) {
+      if (member.roles.where((r) => r.id == role.id).isNotEmpty) {
         return event.respond(
           MessageBuilder.content('You already have that role silly.'),
           hidden: true,
